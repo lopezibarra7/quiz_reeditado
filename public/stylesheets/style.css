@@ -1,4 +1,4 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -7,6 +7,16 @@ a {
   color: #00B7FF;
 }
 
-/*div.web_cuerpo{
+div.web_cuerpo{
 	text-align:center;
 }*/
+*	{margin:0; padding:0;}
+body 	{font:16px Georgia,serif;}
+
+#page-wrap		{margin:2% auto; color:white;}
+#page-wrap > .margin	{border:1px solid #999; padding:1% margin-bottom:1px; color:blac;}
+
+section > div {padding:20px;}
+header,nav,section	{background: #eee; text-align:center;}
+footer	{background: #eee; text-align:center;}
+nav span	{margin:0px 10px 0px 0px;}
