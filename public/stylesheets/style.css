@@ -14,7 +14,7 @@ div.web_cuerpo{
 body 	{font:16px Georgia,serif;}
 
 #page-wrap		{margin:2% auto; color:black;}
-#page-wrap > .margin	{border:5px solid #999; padding:1% margin-bottom:1px; color:black;}
+#page-wrap > .margin	{border:5px solid #999; padding:1%; margin-bottom:1px; color:black;}
 
 section > div {padding:20px;}
 header,nav,section	{background: #DBA901; text-align:center;}
