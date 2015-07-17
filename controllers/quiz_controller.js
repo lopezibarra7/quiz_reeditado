@@ -26,7 +26,7 @@ exports.update = function (req,res){
 	req.quiz.pregunta = req.body.quiz.pregunta;
 	req.quiz.respuesta = req.body.quiz.respuesta;
 	req.quiz.tematica = req.body.quiz.tematica;
-		req.quiz.save({fields:['pregunta','respuesta','tematica']}).then(function(){res.redirect('/quizes');});
+	req.quiz.save({fields:['pregunta','respuesta','tematica']}).then(function(){res.redirect('/quizes');});
 };
 
 /*exports.update = function (req,res){
