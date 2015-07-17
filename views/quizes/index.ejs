@@ -1,8 +1,19 @@
 <table>
 <% var i; for (i=0;i<quizes.length;i++){
-	%> <tr><td><a href="quizes/<%=quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
+	%> <tr>
+	<td><a href="quizes/<%=quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+	<td>--> TEMÁTICA: <%= quizes[i].tematica %></td>
+	<td><a href='quizes/<%=quizes[i].id%>/edit'><button>Editar</button></a></td>
+	<td>
+		<form method='post' action='quizes/<%= quizes[i].id %>?_method=delete'>
+			<button type='submit' onclick='return confirm('BORRAR': <%= quizes[i].pregunta %>');'>
+			Borrar
+			</button>
+	</td>
+	</tr>
 <% } %>
 </table>
+<a href='quizes/new'><button type='button'>Crear pregunta</button></a>
 <form method="get" action="/quizes">
 	<p>Buscar preguntas por parámetro</p>
 		<input type="Text" name="search" value=""/>

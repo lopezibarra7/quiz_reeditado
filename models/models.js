@@ -33,13 +33,10 @@ exports.Quiz = Quiz; //Exportamos definicion de tabla Quiz.
 sequelize.sync().then(function(){ // Creamos e inicializamos la bbdd
 	Quiz.count().then(function (count){
 		if (count === 0) {
-			Quiz.create({ 
-				pregunta: 'Capital de España',
-				respuesta: 'Madrid'});
-			Quiz.create({
-				pregunta: 'Capital de Portugal',
-				respuesta: 'Lisboa'})
-			.then(function(){console.log('Base de datos inicializada.')});
+			Quiz.bulkCreate(
+			[{pregunta: 'Capital de España',respuesta: 'Madrid',tematica: 'Humanidades'},
+			{pregunta: 'Capital de Portugal',respuesta: 'Lisboa',tematica: 'Humanidades'}
+			]).then(function(){console.log('Base de datos inicializada.')});
 		};
 	});
-});1
+});
