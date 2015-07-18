@@ -23,12 +23,21 @@ var sequelize = new Sequelize (DB_name,user,pwd,
 	omitNull: true
 });
 
+
+
 //Usar BBDD SQLite
 //var sequelize = new Sequelize (null, null, null, {dialect: 'sqlite',storage:'quiz.sqlite'});
 
 //Importar la definicion de la tabla Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 exports.Quiz = Quiz; //Exportamos definicion de tabla Quiz.
+
+var comment_path = path.join(__dirname,'comment');
+var Comment = sequelize.import(comment_path);
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+
+exports.Comment = Comment;
 
 sequelize.sync().then(function(){ // Creamos e inicializamos la bbdd
 	Quiz.count().then(function (count){

@@ -1,14 +1,14 @@
 var models = require ('../models/models.js');
 
 // Guardar los datos insertados en BD.
-exports.create = function(req, res){
+/*exports.create = function(req, res){
    var quiz = models.Quiz.build(req.body.quiz);
    				quiz.save({fields: ["pregunta", "respuesta", "tematica"]}).then(function(){
    					res.redirect('/quizes');
    		});
-};
+};*/
 
-/* exports.create = function(req, res) {
+exports.create = function(req, res) {
    var quiz = models.Quiz.build( req.body.quiz );
   	quiz.validate().then(function(err){
       if (err) {
@@ -20,16 +20,16 @@ exports.create = function(req, res){
       } 
     }
   );
-}; */
+};
 
-exports.update = function (req,res){
+/*exports.update = function (req,res){
 	req.quiz.pregunta = req.body.quiz.pregunta;
 	req.quiz.respuesta = req.body.quiz.respuesta;
 	req.quiz.tematica = req.body.quiz.tematica;
 	req.quiz.save({fields:['pregunta','respuesta','tematica']}).then(function(){res.redirect('/quizes');});
-};
+};*/
 
-/*exports.update = function (req,res){
+exports.update = function (req,res){
 	req.quiz.pregunta = req.body.quiz.pregunta;
 	req.quiz.respuesta = req.body.quiz.respuesta;
 	req.quiz.tematica = req.body.quiz.tematica;
@@ -41,7 +41,7 @@ exports.update = function (req,res){
 			.then(function(){res.redirect('/quizes');});
 		}
 	});
-};*/
+};
 
 exports.destroy = function(req,res){
 	req.quiz.destroy().then( function() {
@@ -64,6 +64,7 @@ exports.new = function (req,res){
 };
 
 //GET /quizes/load
+/*
 exports.load = function (req,res,next,quizId){
 	models.Quiz.find(quizId).then(
 		function(quiz){
@@ -73,6 +74,20 @@ exports.load = function (req,res,next,quizId){
 			} else {next(new Error('No existe quizId='+quiz.Id));}
 		}
 	).catch(function(error){next(error);});
+};*/
+exports.load = function (req,res,next,quizId){
+	models.Quiz.find({
+		where: {id: Number(quizId)},
+		include:[{model: models.Comment}]
+	}).then(function(quiz){
+		if (quiz){
+			req.quiz = quiz;
+			next();
+		}else{
+			next(new Error('No existe el siguiente identificador de pregunta -> '+quizId))
+		}
+	}
+	).catch(function(error){next(error)});
 };
 
 //GET /quizes/index
