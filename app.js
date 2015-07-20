@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var partials = require ('express-partials');
 var methodOverride = require ('method-override');
 var routes = require('./routes/index');
+var session = require ('express-session');
 //var users = require('./routes/users');
 
 var app = express();
@@ -22,9 +23,22 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser('quiz-reeditado-mli'));
+app.use(session());
+//app.use(cookieParser());
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+//Helpers dinamicos.
+app.use (function (req,res,next){
+  //guarda path en session 
+  if (!req.path.match(/\/login|\/logout/)){
+    req.session.redir = req.path;
+  }
+  res.locals.session = req.session;
+  next();
+});
+
 app.use('/', routes);
 //app.use('/users', users);
 
