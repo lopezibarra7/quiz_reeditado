@@ -49,6 +49,19 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+//MW para autologout.
+app.use(function(req, res, next) {
+  var horaActual = new Date().getTime();
+  var ultimoAcceso = req.session.lastVisit;
+  var tiempoInactivo = horaActual - ultimoAcceso;
+  var maxMinutosInactivos = 2*60*1000;
+  if (req.session.user && req.session.lastVisit){
+    if (maxMinutosInactivos > tiempoInactivo){
+      delete req.session.user;
+    }
+    next();
+  }
+});
 // error handlers
 
 // development error handler
