@@ -52,13 +52,14 @@ app.use(function(req, res, next) {
 //MW para autologout.
 app.use(function(req, res, next) {
   var horaActual = new Date().getTime();
-  var ultimoAcceso = req.session.lastVisit;
-  var tiempoInactivo = horaActual - ultimoAcceso;
-  var maxMinutosInactivos = 2*60*1000;
-  if (req.session.user && req.session.lastVisit){
-    if (maxMinutosInactivos > tiempoInactivo){
+  var maxMinutosInactivos = 2*60*1000; 
+  var tiempoInactivo = horaActual - req.session.lastAccess;
+  
+  if (req.session.user && req.session.lastAccess){
+    if (maxMinutosInactivos <= tiempoInactivo){
       delete req.session.user;
     }
+    req.session.lastAccess = horaActual;
     next();
   }
 });
